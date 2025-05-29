@@ -1,13 +1,12 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from matplotlib import pyplot as plt
 
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from typing import Tuple, Dict, Any, Optional
 
-from models.models import STGCMamba
+from models.models import STGFMamba
 from modules.data_handler import DataHandler
 from modules.schedulers import EarlyStopScheduler
 from modules.result_manager import ResultManager
@@ -85,17 +84,15 @@ class ExperimentHandler():
         out_dim = 1
         steps_per_day = STEPS_PER_DAY_DICT[data_name]
 
-        # TODO:获取天平均值
-        if self.model_name == "STGCMamba":
-            model = STGCMamba(in_dim=in_dim,
+        if self.model_name == "STGFMamba":
+            model = STGFMamba(in_dim=in_dim,
                               out_dim=out_dim,
                               emb_dim=hyperparameter.get("emb_dim", 32),
                               ff_dim=hyperparameter.get("ff_dim", 256),
+                              order=hyperparameter.get("order", 1),
+                              e_layers=hyperparameter.get("e_layers", 4),
                               steps_per_day=steps_per_day,
                               num_nodes=num_nodes,
-                              # gddmlp默认使用，只设置使用的池化方式
-                              avg=False,
-                              max=False,
                               # graph=self.data.graph,
                               num_layers=hyperparameter.get("num_layers", 3),
                               dropout=hyperparameter.get("dropout", 0.1))
@@ -154,22 +151,6 @@ class ExperimentHandler():
         test_results = self.test()
 
         return test_results
-    def show_cycle(self):
-        self.load_model(best=True)
-        data = self.model.dayCycle.data.detach().cpu().numpy()
-        i = 0
-        selected_node = data[i, :]
-
-        # 绘制折线图
-        plt.figure(figsize=(10, 5))  # 设置图像大小
-        plt.plot(selected_node, label=f'Node {i}')
-        plt.title(f'Line Plot for Node {i}')
-        plt.xlabel('Index')
-        plt.ylabel('Value')
-        plt.legend()
-        plt.grid(True)  # 显示网格
-        plt.show()
-        print(data)
     def train_epoch(self) -> None:
 
         self.result_manager.start_epoch()

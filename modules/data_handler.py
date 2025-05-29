@@ -60,24 +60,18 @@ class DataHandler():
         print(f"Validation X: {str(list(x_val.shape)):>19} / Validation Y: {str(list(y_val.shape)):>19}")
         print(f"Test X: {str(list(x_test.shape)):>25} / Test Y: {str(list(y_test.shape)):>25}")
         print("="*70)
-    # TODO:生成与数据相关的周期数据
     def get_day_avg(self, steps_per_chunk = 288):
         # self.sequence(steps, num_nodes, dim)
         sequence = self.sequence[:,:,0]
         total_steps, feature_size = sequence.shape
-
-        # 计算可以完整拆分的子矩阵的数量
         n_chunks = total_steps // steps_per_chunk
-        # 初始化一个空列表来存储子矩阵
         chunks = []
 
-        # 拆分矩阵
         for i in range(n_chunks):
             chunk = sequence[i * steps_per_chunk : (i + 1) * steps_per_chunk,:]
             chunk = np.array(chunk)
             chunks.append(chunk)
 
-        # 将子矩阵转换为NumPy数组并计算平均值
         chunks_array = np.array(chunks)
         mean_matrix = np.mean(chunks_array, axis=0)
         return mean_matrix
@@ -102,56 +96,6 @@ class DataHandler():
         dir_path = os.path.join(root_dir, dir_name)
 
         sequence: np.ndarray = np.load(os.path.join(dir_path, f"{dir_name}.npz"))["data"]
-
-        graph_path = os.path.join(dir_path, f"{dir_name}.bin")
-
-        # Load DGL Graph
-        if os.path.exists(graph_path):
-            if not use_distance:
-                print(f"Load graph from {graph_path}.")
-
-                graphs, _ = dgl.load_graphs(graph_path)
-                graph: dgl.DGLGraph = graphs[0]
-            else:
-                filepath = os.path.join(dir_path, f"{dir_name}.csv")
-                num_nodes = sequence.shape[1]
-                adj = csv_to_scipy_sparse(filepath, num_nodes, format="csr", symmetric=True)
-                assert is_symmetric(adj)
-                graph = dgl.from_scipy(adj, eweight_name='cost')
-
-                # Min-Max normalization
-                cost = graph.edata['cost']
-                avg = cost.mean()
-                for i, val in enumerate(cost):
-                    if val <= 400:
-                        res = torch.exp(-(val / (val - avg))**2)
-                        cost[i] = res
-                    else:
-                        cost[i] = 0
-                graph.edata['cost'] = cost
-
-        # Generate DGL Graph
-        else:
-            # print(f"Not found graph in {graph_path}. Generate graph data file.")
-            #
-            # filepath = os.path.join(dir_path, f"{dir_name}.csv")
-            num_nodes = sequence.shape[1]
-            # adj = csv_to_scipy_sparse(filepath, num_nodes, format="csr", symmetric=True)
-            # assert is_symmetric(adj)
-
-            # graph = dgl.from_scipy(adj, eweight_name='cost')
-
-            # Min-Max normalization
-            # cost = graph.edata['cost']
-            # cost -= cost.min(0, keepdim=True)[0]
-            # cost /= cost.max(0, keepdim=True)[0]
-            # graph.edata['cost'] = cost
-
-            # dgl.save_graphs(graph_path, [graph])
-            # print(f"Saved graph to {graph_path}.")
-
-        # graph = dgl.remove_self_loop(graph)
-
         # data = dict({"sequence": sequence, "graph": graph})
         data = dict({"sequence": sequence})
 
