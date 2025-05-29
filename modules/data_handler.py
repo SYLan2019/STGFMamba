@@ -32,7 +32,7 @@ class DataHandler():
         set_all_seeds(self.seed)
 
         # Load and preprocess dataset
-        data = self.load_data(use_distance=True)
+        data = self.load_data()
 
         self.scaler = StandardScaler()
         sequence = data["sequence"]
@@ -75,7 +75,7 @@ class DataHandler():
         chunks_array = np.array(chunks)
         mean_matrix = np.mean(chunks_array, axis=0)
         return mean_matrix
-    def load_data(self, root_dir=DATA_ROOT_DIR, use_distance = False) -> Dict[str, Any]:
+    def load_data(self, root_dir=DATA_ROOT_DIR) -> Dict[str, Any]:
         """
         Load data for the specified data name.
 

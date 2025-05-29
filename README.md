@@ -27,7 +27,7 @@ tqdm
     "setting": {
         "exp_name": "Name of the experiment.",
         "dataset": "The dataset to be used, e.g., 'pems04'.",
-        "model": "The model type to be used, e.g., 'SpoTMamba'.",
+        "model": "The model type to be used, e.g., 'STGFMamba'.",
         "in_steps": "Number of input time steps to use in the model.",
         "out_steps": "Number of output time steps (predictions) the model should generate.",
         "train_ratio": "Percentage of data to be used for training (expressed as an integer out of 100).",

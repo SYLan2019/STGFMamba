@@ -5,18 +5,10 @@ import torch.nn as nn
 
 from typing import Tuple, Optional, Any, Union
 import torch.nn.functional as F
-from numpy import ndarray
 from torch import Tensor
 
 from models.modules import GFMambaEncoder, GraphPropagate
 from models.layers import  TemporalEmbedding, GCN
-
-P_BFS = 0.5  # < 1
-Q_BFS = 2.  # > 1
-P_DFS = 2.  # > 1
-Q_DFS = 0.5  # < 1
-P_RW = 1.
-Q_RW = 1.
 
 
 class STGFMamba(nn.Module):

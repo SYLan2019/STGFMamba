@@ -3,7 +3,7 @@ import numpy as np
 class StandardScaler:
     """
     Standard the input
-    https://github.com/nnzhan/Graph-WaveNet/blob/master/util.py
+    From https://github.com/nnzhan/Graph-WaveNet/blob/master/util.py
     """
 
     def __init__(self, mean=None, std=None):
