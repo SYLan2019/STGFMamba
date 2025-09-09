@@ -5,7 +5,7 @@ We used Python 3.8 and Pytorch 2.1.0 with cudatoolkit 11.7.
 ## Usage
 We used NVIDIA GeForce RTX 4090 24GB for all our experiments. We provide the template configuration file (`template.json`).
 
-To train SpoT-Mamba, use the `run.py` file as follows:
+To train STGFMamba, use the `run.py` file as follows:
 
 ``` bash
 python run.py --config_path=./template.json

@@ -1,3 +1,6 @@
+'''
+From "https://github.com/bdi-lab/SpoT-Mamba"
+'''
 import torch
 import torch.nn as nn
 import numpy as np
@@ -251,16 +254,13 @@ class ExperimentHandler():
 
         x, y = batch
         x, y = x.to(self.device), y.to(self.device)
-        y_pred, graph, sl = model(x)
+        y_pred = model(x)
 
         y_pred = self.data.scaler.inverse_transform(y_pred)
         y = self.data.scaler.inverse_transform(y)
 
         output['y_pred'] = y_pred
         output['y_true'] = y
-        output['sl'] = sl
-        # sr(batch_size, in_steps, num_nodes, model_dim)
-        output['graph'] = graph
 
         return output
 
@@ -315,11 +315,6 @@ class ExperimentHandler():
             losses = np.append(losses, loss)
 
         results = dict()
-        # nonzero_elements = answers[np.where(answers != 0)]
-        # nonzero_min = np.min(nonzero_elements)
-        # print(f'answers 非0最小值:{nonzero_min}')
-        # sorted_nonzero_elements = np.sort(nonzero_elements)
-        # unique_elements = np.unique(sorted_nonzero_elements)
         results['loss'] = np.mean(losses)
         results['RMSE'] = RMSE(answers, y_preds)
         results['MAE'] = MAE(answers, y_preds)
@@ -330,7 +325,6 @@ class ExperimentHandler():
 
     def entropy_loss(self, s):
         entropy = -torch.sum(s * torch.log(s + 1e-10), dim=-1)  # 加 1e-10 避免 log(0)
-        # 对所有行的熵求平均
         loss = torch.mean(entropy)
 
         return loss

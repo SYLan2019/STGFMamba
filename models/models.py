@@ -102,7 +102,7 @@ class STGFMamba(nn.Module):
         self.scale = [1, 0.01, 0.001]
         self.dropout = nn.Dropout(dropout)
         self.pooling = nn.AvgPool2d(kernel_size=(1, kernel_size[0]), stride=1)
-    def forward(self, x: torch.Tensor, out_steps: int = 12) -> Tuple[Tensor, Tensor, Tensor]:
+    def forward(self, x: torch.Tensor, out_steps: int = 12):
         device = x.device
         batch_size, num_steps, num_nodes, _ = x.shape
         features = torch.tensor([]).to(x)
@@ -154,5 +154,5 @@ class STGFMamba(nn.Module):
 
         # Regression Layer
         out = self.regression_layer(h)
-        return out, graph, sa
+        return out
 

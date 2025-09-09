@@ -21,6 +21,9 @@ class GraphPropagate(nn.Module):
 
         return x_list
 class GFMambaEncoder(nn.Module):
+    """
+    MambaEncoder, similar to https://arxiv.org/abs/2406.05316
+    """
     def __init__(self, e_layers: int = 4,
                  d_model: int = 128,
                  gddmlp: bool = True,
@@ -109,7 +112,7 @@ class GFMambaBlock(nn.Module):
         return output
 class MambaBlock(nn.Module):
     """
-    MambaModule, similar to https://arxiv.org/pdf/2402.18959
+    MambaModule, modified based on https://arxiv.org/pdf/2402.18959
     """
     def __init__(self,
                  d_model: int = 128,
