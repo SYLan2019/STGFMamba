@@ -60,4 +60,7 @@ tqdm
     "force_retrain": "Flag to force the retraining of the model even if a trained model exists."
 }
 ```
+## Citation
+
+If you use this code in your research, please cite the original work and our project. See the [CITATION.cff](CITATION.cff) file for details.
 
