@@ -2,6 +2,7 @@
 ## Requirments
 We used Python 3.8 and Pytorch 2.1.0 with cudatoolkit 11.7.
 
+This work used the framework code from [https://arxiv.org/abs/2406.11244](https://arxiv.org/abs/2406.11244).
 ## Usage
 We used NVIDIA GeForce RTX 4090 24GB for all our experiments. We provide the template configuration file (`template.json`).
 
@@ -60,7 +61,5 @@ tqdm
     "force_retrain": "Flag to force the retraining of the model even if a trained model exists."
 }
 ```
-## Citation
 
-If you use this code in your research, please cite the original work and our project. See the [CITATION.cff](CITATION.cff) file for details.
 
