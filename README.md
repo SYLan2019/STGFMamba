@@ -60,6 +60,8 @@ tqdm
     "cuda_id": "CUDA device ID (GPU ID) to be used for training if available.",
     "force_retrain": "Flag to force the retraining of the model even if a trained model exists."
 }
+```
+
 
 ## Cite
 
@@ -77,3 +79,4 @@ doi = {https://doi.org/10.1016/j.ins.2026.123601}}
 ```
 
 
+## 
