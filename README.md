@@ -61,6 +61,10 @@ tqdm
     "force_retrain": "Flag to force the retraining of the model even if a trained model exists."
 }
 
+## Cite
+
+If you use this repository or would like to refer the paper, please use the following BibTeX entry
+```
 @article{STGFMamba,
 author = {Yu Han and Xinyuan Zhou and Ruiyi Lu and Zhiang Hou and Yao Ren and Wenwu Wang and Shiyong Lan},
 title = {STGFMamba: Spatio-temporal graph Fourier-enhanced Mamba for traffic prediction},
