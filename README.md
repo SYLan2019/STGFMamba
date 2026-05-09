@@ -60,6 +60,16 @@ tqdm
     "cuda_id": "CUDA device ID (GPU ID) to be used for training if available.",
     "force_retrain": "Flag to force the retraining of the model even if a trained model exists."
 }
+
+@article{STGFMamba,
+author = {Yu Han and Xinyuan Zhou and Ruiyi Lu and Zhiang Hou and Yao Ren and Wenwu Wang and Shiyong Lan},
+title = {STGFMamba: Spatio-temporal graph Fourier-enhanced Mamba for traffic prediction},
+journal = {Information Sciences},
+volume = {752},
+pages = {123601},
+year = {2026},
+issn = {0020-0255},
+doi = {https://doi.org/10.1016/j.ins.2026.123601}}
 ```
 
 
